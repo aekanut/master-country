@@ -3,14 +3,16 @@ import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './configuration';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 @Module({
   imports: [
     UserModule,
+    AuthenticationModule,
     ConfigModule.forRoot({ load: [configuration], isGlobal: true }),
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => {
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
         const { uri, dbName } = configService.get<{
           uri: string;
           dbName: string;
@@ -21,7 +23,6 @@ import configuration from './configuration';
           autoCreate: true,
         };
       },
-      inject: [ConfigService],
     }),
   ],
   controllers: [],

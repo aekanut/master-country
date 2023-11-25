@@ -15,6 +15,6 @@ export class UserService {
   }
 
   createUser({ username, password }: User) {
-    return this.createUser({ username, password });
+    return this.userRepository.createUser({ username, password });
   }
 }

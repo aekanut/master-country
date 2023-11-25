@@ -1,14 +1,19 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, Req } from '@nestjs/common';
 import { UserService } from '../service/user.service';
-import { AuthenticationGuard } from 'src/authentication/guard/authentication.guard';
+import { AuthenticationGuard } from 'src/guard/authentication.guard';
 
+@UseGuards(AuthenticationGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(AuthenticationGuard)
   @Get('/')
   getUsers() {
     return this.userService.findUsers();
+  }
+
+  @Get('/profile')
+  getMe(@Req() { user }) {
+    return user;
   }
 }

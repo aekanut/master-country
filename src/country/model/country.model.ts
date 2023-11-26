@@ -1,7 +1,7 @@
 import { prop, getModelForClass } from '@typegoose/typegoose';
 
 export class Country {
-  @prop({ required: true })
+  @prop({ required: true, index: true })
   public name: string;
 
   @prop({ required: true })

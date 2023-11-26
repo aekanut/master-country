@@ -48,12 +48,12 @@ describe('AuthenticationService', () => {
       id: 'id',
       username: MOCK_USERNAME,
       password: MOCK_PASSWORD,
-    } as any;
+    };
 
     it('should call findUserByUsername', async () => {
       const mockUser = cloneDeep(MOCK_USER);
       mockUser.password = encryptPassword(mockUser.password);
-      mockUserService.findUserByUsername.mockResolvedValueOnce(mockUser);
+      mockUserService.findUserByUsername.mockResolvedValueOnce(mockUser as any);
       await authenticationService.login({
         username: MOCK_USERNAME,
         password: MOCK_PASSWORD,
@@ -74,7 +74,7 @@ describe('AuthenticationService', () => {
     it('should throw an error when password not correct', async () => {
       const mockUser = cloneDeep(MOCK_USER);
       mockUser.password = 'random';
-      mockUserService.findUserByUsername.mockResolvedValueOnce(mockUser);
+      mockUserService.findUserByUsername.mockResolvedValueOnce(mockUser as any);
       expect(
         authenticationService.login({
           username: MOCK_USERNAME,
@@ -85,7 +85,7 @@ describe('AuthenticationService', () => {
     it('should return accessToken from jwtService.sign', async () => {
       const mockUser = cloneDeep(MOCK_USER);
       mockUser.password = encryptPassword(mockUser.password);
-      mockUserService.findUserByUsername.mockResolvedValueOnce(mockUser);
+      mockUserService.findUserByUsername.mockResolvedValueOnce(mockUser as any);
       const accessToken = 'accessToken';
       mockJwtService.sign.mockReturnValueOnce(accessToken);
       const result = await authenticationService.login({

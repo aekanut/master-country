@@ -19,7 +19,8 @@ export class CountryService {
     return country._id;
   }
 
-  getCountries() {
-    return this.countryRepository.findCountries();
+  async getCountries() {
+    const countries = await this.countryRepository.findCountries();
+    return countries.map((country) => country.toJSON({ flattenMaps: false }));
   }
 }

@@ -10,8 +10,12 @@ export class UserService {
     private readonly countryService: CountryService,
   ) {}
 
-  findUsers() {
-    return this.userRepository.findUsers();
+  async findUsers() {
+    return this.userRepository
+      .findUsers()
+      .then((users) =>
+        users.map((user) => user.toJSON({ flattenMaps: false })),
+      );
   }
 
   findUserByUsername(username: User['username']) {

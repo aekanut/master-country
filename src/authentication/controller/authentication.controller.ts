@@ -1,5 +1,7 @@
 import { Controller, Post, Body, HttpStatus, HttpCode } from '@nestjs/common';
 import { AuthenticationService } from '../service/authentication.service';
+import { LoginRequestDto } from '../dtos/login.request.dto';
+import { RegisterRequestDto } from '../dtos/register.request.dto';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -7,9 +9,7 @@ export class AuthenticationController {
 
   @HttpCode(HttpStatus.OK)
   @Post('/login')
-  login(
-    @Body() { username, password }: { username: string; password: string },
-  ) {
+  login(@Body() { username, password }: LoginRequestDto) {
     return this.authenticationService.login({ username, password });
   }
 
@@ -17,15 +17,7 @@ export class AuthenticationController {
   @Post('/register')
   register(
     @Body()
-    {
-      username,
-      password,
-      countryName,
-    }: {
-      username: string;
-      password: string;
-      countryName: string;
-    },
+    { username, password, countryName }: RegisterRequestDto,
   ) {
     return this.authenticationService.register({
       username,

@@ -21,4 +21,8 @@ export default class CountryRepository {
   findCountries() {
     return this.countryModel.find();
   }
+
+  findCountryNames() {
+    return this.countryModel.find({}, { name: true, _id: false });
+  }
 }

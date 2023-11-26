@@ -6,6 +6,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { SeederModule } from './seeder/seeder.module';
 import { CountryModule } from './country/country.module';
 import configuration from './configuration';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -22,6 +23,17 @@ import configuration from './configuration';
           dbName,
           autoCreate: true,
         };
+      },
+    }),
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      global: true,
+      useFactory: (configService: ConfigService) => {
+        const { secret, timeout } = configService.get<{
+          secret: string;
+          timeout: string;
+        }>('jwt');
+        return { secret, signOptions: { expiresIn: timeout } };
       },
     }),
     UserModule,

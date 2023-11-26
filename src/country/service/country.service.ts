@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import CountryRepository from '../repository/country.repository';
 import { Country } from '../model/country.model';
 
@@ -13,7 +13,10 @@ export class CountryService {
   async getCountryIdByCountryName(countryName: string) {
     const country =
       await this.countryRepository.findCountryByThaiName(countryName);
-    return country?._id;
+    if (!country) {
+      throw new NotFoundException('Country not exists');
+    }
+    return country._id;
   }
 
   getCountries() {

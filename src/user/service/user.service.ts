@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import UserRepository from '../repository/user.repository';
 import { User } from '../model/user.model';
 import { CountryService } from 'src/country/service/country.service';
@@ -29,9 +29,6 @@ export class UserService {
   }) {
     const countryId =
       await this.countryService.getCountryIdByCountryName(countryName);
-    if (!countryId) {
-      throw new NotFoundException('Country not exists');
-    }
     return this.userRepository.createUser({
       username,
       password,

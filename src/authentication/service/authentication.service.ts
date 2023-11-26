@@ -44,7 +44,7 @@ export class AuthenticationService {
       throw new ConflictException('User already exists');
     }
 
-    const salt = bcrypt.genSaltSync(10);
+    const salt = bcrypt.genSaltSync();
     const encryptedPassword = bcrypt.hashSync(password, salt);
 
     const user = await this.userService.createUser({

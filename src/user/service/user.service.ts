@@ -18,7 +18,7 @@ export class UserService {
       );
   }
 
-  findUserByUsername(username: User['username']) {
+  async findUserByUsername(username: User['username']) {
     return this.userRepository.findUserByUsername(username);
   }
 

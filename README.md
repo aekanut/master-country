@@ -1,10 +1,11 @@
 ## How to run this project
 
 1. Start mongodb server and set MONGO_URI
-2. Run `npm run seed:countries` to insert initial country documents to countries collection
-3. Run `npm run start:dev`
-4. `{hostname}/api-document` for swagger API document
-5. NOTE: I wrote only 1 unit test for "authentication.service.ts" because I have no time to write it all
+2. Run `npm install` to install all library
+3. Run `npm run seed:countries` to insert initial country documents to countries collection
+4. Run `npm run start:dev`
+5. `{hostname}/api-document` for swagger API document
+6. NOTE: I wrote only 1 unit test for "authentication.service.ts" because I have no time to write it all
 
 ## Installation
 

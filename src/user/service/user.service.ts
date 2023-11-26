@@ -11,11 +11,10 @@ export class UserService {
   ) {}
 
   async findUsers() {
-    return this.userRepository
-      .findUsers()
-      .then((users) =>
-        users.map((user) => user.toJSON({ flattenMaps: false })),
-      );
+    const users = await this.userRepository.findUsers();
+    return {
+      users: users.map((user) => user.toJSON({ flattenMaps: false })),
+    };
   }
 
   async findUserByUsername(username: User['username']) {

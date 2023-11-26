@@ -21,11 +21,17 @@ export class CountryService {
 
   async getCountries() {
     const countries = await this.countryRepository.findCountries();
-    return countries.map((country) => country.toJSON({ flattenMaps: false }));
+    return {
+      countries: countries.map((country) =>
+        country.toJSON({ flattenMaps: false }),
+      ),
+    };
   }
 
   async getCountryNames() {
     const countries = await this.countryRepository.findCountryNames();
-    return countries.map((country) => country.name);
+    return {
+      countries: countries.map((country) => country.name),
+    };
   }
 }

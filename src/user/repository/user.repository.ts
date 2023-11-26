@@ -11,14 +11,14 @@ export default class UserRepository {
   ) {}
 
   findUsers() {
-    return this.userModel.find().exec();
+    return this.userModel.find().populate('country').exec();
   }
 
   findUserByUsername(username: User['username']) {
     return this.userModel.findOne({ username }).exec();
   }
 
-  createUser({ username, password }: Pick<User, 'username' | 'password'>) {
-    return this.userModel.create({ username, password });
+  createUser({ username, password, country }: User) {
+    return this.userModel.create({ username, password, country });
   }
 }

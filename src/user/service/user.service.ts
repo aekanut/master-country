@@ -1,10 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import UserRepository from '../repository/user.repository';
 import { User } from '../model/user.model';
+import { CountryService } from 'src/country/service/country.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly countryService: CountryService,
+  ) {}
 
   findUsers() {
     return this.userRepository.findUsers();
@@ -14,7 +18,24 @@ export class UserService {
     return this.userRepository.findUserByUsername(username);
   }
 
-  createUser({ username, password }: User) {
-    return this.userRepository.createUser({ username, password });
+  async createUser({
+    username,
+    password,
+    countryName,
+  }: {
+    username: string;
+    password: string;
+    countryName: string;
+  }) {
+    const countryId =
+      await this.countryService.getCountryIdByCountryName(countryName);
+    if (!countryId) {
+      throw new NotFoundException('Country not exists');
+    }
+    return this.userRepository.createUser({
+      username,
+      password,
+      country: countryId,
+    });
   }
 }

@@ -5,6 +5,7 @@ import { UserModule } from 'src/user/user.module';
 import { AuthenticationController } from './controller/authentication.controller';
 import { UserService } from 'src/user/service/user.service';
 import { AuthenticationService } from './service/authentication.service';
+import { CountryModule } from 'src/country/country.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AuthenticationService } from './service/authentication.service';
       },
     }),
     UserModule,
+    CountryModule,
   ],
   controllers: [AuthenticationController],
   providers: [UserService, AuthenticationService],

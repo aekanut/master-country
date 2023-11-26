@@ -16,8 +16,21 @@ export class AuthenticationController {
   @HttpCode(HttpStatus.OK)
   @Post('/register')
   register(
-    @Body() { username, password }: { username: string; password: string },
+    @Body()
+    {
+      username,
+      password,
+      countryName,
+    }: {
+      username: string;
+      password: string;
+      countryName: string;
+    },
   ) {
-    return this.authenticationService.register({ username, password });
+    return this.authenticationService.register({
+      username,
+      password,
+      countryName,
+    });
   }
 }

@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import configuration from './configuration';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { SeederModule } from './seeder/seeder.module';
+import { CountryModule } from './country/country.module';
+import configuration from './configuration';
 
 @Module({
   imports: [
-    UserModule,
-    AuthenticationModule,
     ConfigModule.forRoot({ load: [configuration], isGlobal: true }),
     MongooseModule.forRootAsync({
       inject: [ConfigService],
@@ -24,6 +24,10 @@ import { AuthenticationModule } from './authentication/authentication.module';
         };
       },
     }),
+    UserModule,
+    AuthenticationModule,
+    SeederModule,
+    CountryModule,
   ],
   controllers: [],
   providers: [],

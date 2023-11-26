@@ -30,7 +30,15 @@ export class AuthenticationService {
     return this.generateAccessToken(user.id, user.username);
   }
 
-  async register({ username, password }: User) {
+  async register({
+    username,
+    password,
+    countryName,
+  }: {
+    username: string;
+    password: string;
+    countryName: string;
+  }) {
     const existsUser = await this.userService.findUserByUsername(username);
     if (!isEmpty(existsUser)) {
       throw new ConflictException('User already exists');
@@ -42,6 +50,7 @@ export class AuthenticationService {
     const user = await this.userService.createUser({
       username,
       password: encryptedPassword,
+      countryName,
     });
     return this.generateAccessToken(user.id, user.username);
   }

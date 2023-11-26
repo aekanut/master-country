@@ -1,6 +1,6 @@
 ## How to run this project
 
-1. Start mongodb server and set MONGO_URI
+1. Start mongodb server and set env of MONGO_URI
 2. Run `npm install` to install all library
 3. Run `npm run seed:countries` to insert initial country documents to countries collection
 4. Run `npm run start:dev`
